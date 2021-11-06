@@ -25,18 +25,24 @@ const LoginView: FC<Props> = () => {
       setDirty(true)
       handleValidation()
     }
-
+    const auth_token = (await localStorage.getItem('auth_token')) || ''
+    const phone_token = (await localStorage.getItem('phone_token')) || ''
+    const phone_number = (await localStorage.getItem('phone_number')) || ''
     try {
       setLoading(true)
       setMessage('')
-      await login({
-        email,
-        password,
+      const res = await login({
+        auth_token,
+        phone_token,
+        phone_number,
       })
+      console.log('RES', res)
       setLoading(false)
       closeModal()
-    } catch ({ errors }) {
-      setMessage(errors[0].message)
+    } catch (error) {
+      alert('ERROR!!')
+      console.log(error)
+      // setMessage(errors[0].message)
       setLoading(false)
       setDisabled(false)
     }

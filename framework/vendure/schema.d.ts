@@ -3074,12 +3074,17 @@ export type AdjustOrderLineMutation = { __typename?: 'Mutation' } & {
 }
 
 export type LoginMutationVariables = Exact<{
-  username: Scalars['String']
-  password: Scalars['String']
+  auth_token: Scalars['String']
+  phone_token: Scalars['String']
+  phone_number: Scalars['String']
 }>
+// export type LoginMutationVariables = Exact<{
+//   username: Scalars['String']
+//   password: Scalars['String']
+// }>
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
-  login:
+  authenticate:
     | ({ __typename: 'CurrentUser' } & Pick<CurrentUser, 'id'>)
     | ({ __typename: 'InvalidCredentialsError' } & Pick<
         InvalidCredentialsError,
