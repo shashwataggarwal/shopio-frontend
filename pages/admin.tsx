@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Logo, Button, Input } from '@components/ui'
-import { request, gql } from 'graphql-request'
+import { request, gql, GraphQLClient } from 'graphql-request'
 
 // import useLogin from '@framework/auth/use-login'
 // import { useUI } from '@components/ui/context'
@@ -26,7 +26,7 @@ export default function Admin() {
       if (res.authenticate.__typename == 'CurrentUser') {
         // successfully authenticated - redirect to Vendure Admin UI
         // window.location.href = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
-        // window.location.replace('http://localhost:3000/admin')
+        window.location.replace(`http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`);
       }
       setLoading(false)
     } catch (error) {
@@ -72,6 +72,10 @@ export default function Admin() {
 
 function admin_login({ auth_token, phone_token, phone_number }) {
   const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
+  const client = new GraphQLClient(endpoint, {
+    credentials: 'include',
+    mode: 'cors',
+  })
   const query = gql`
     mutation Authenticate(
       $auth_token: String!
@@ -127,7 +131,7 @@ function admin_login({ auth_token, phone_token, phone_number }) {
     phone_token,
     phone_number,
   }
-  return request(endpoint, query, variables)
+  return client.request(query, variables)
 }
 
 // make gql request to end point
