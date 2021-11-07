@@ -9,7 +9,12 @@ const uiConfig = {
   signInSuccessUrl: '/signedIn',
   // GitHub as the only included Auth Provider.
   // You could add and configure more here!
-  signInOptions: [firebase.auth.PhoneAuthProvider.PROVIDER_ID],
+  signInOptions: [
+    {
+      provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+      defaultCountry: 'IN',
+    },
+  ],
 }
 
 function SignInScreen() {
