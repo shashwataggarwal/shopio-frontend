@@ -19,7 +19,7 @@ module.exports = withCommerceConfig({
   },
   rewrites() {
     return [
-      (isBC || isShopify || isSwell || isVendure || isSaleor) && {
+      (isBC || isShopify || isSwell || isSaleor) && {
         source: '/checkout',
         destination: '/api/checkout',
       },
