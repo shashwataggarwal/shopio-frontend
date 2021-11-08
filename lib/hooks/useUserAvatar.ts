@@ -5,7 +5,8 @@ import { getRandomPairOfColors } from '@lib/colors'
 export const useUserAvatar = (name = 'userAvatar') => {
   const { userAvatar, setUserAvatar } = useUI()
   useEffect(() => {
-    // console.log('AVATR', userAvatar, localStorage.getItem(name))
+    console.log('AVATR', userAvatar, localStorage.getItem(name))
+
     if (!userAvatar && localStorage.getItem(name)) {
       // Get bg from localStorage and push it to the context.
       setUserAvatar(localStorage.getItem(name))
@@ -16,6 +17,10 @@ export const useUserAvatar = (name = 'userAvatar') => {
       const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
       localStorage.setItem(name, value)
       setUserAvatar(value)
+    }
+
+    if (userAvatar) {
+      localStorage.setItem(name, userAvatar)
     }
   }, [userAvatar])
 
