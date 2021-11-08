@@ -16,6 +16,7 @@ export const handler: MutationHook<LogoutHook> = {
     await fetch<LogoutMutation>({
       ...options,
     })
+    localStorage.removeItem('userAvatar')
     return null
   },
   useHook:

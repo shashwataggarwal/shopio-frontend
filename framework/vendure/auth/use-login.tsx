@@ -30,8 +30,6 @@ export const handler: MutationHook<LoginHook> = {
       phone_number,
     }
 
-    console.log('variables', variables)
-
     const res = await fetch<LoginMutation>({
       ...options,
       variables,

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Logo, Button, Input } from '@components/ui'
 import { request, gql, GraphQLClient } from 'graphql-request'
 
-// import useLogin from '@framework/auth/use-login'
-// import { useUI } from '@components/ui/context'
+import { LoginView } from '@components/auth'
+import { CommerceProvider } from '@framework'
 
 export default function Admin() {
   const [loading, setLoading] = useState(false)
@@ -26,7 +26,9 @@ export default function Admin() {
       if (res.authenticate.__typename == 'CurrentUser') {
         // successfully authenticated - redirect to Vendure Admin UI
         // window.location.href = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
-        window.location.replace(`http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`);
+        window.location.replace(
+          `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+        )
       }
       setLoading(false)
     } catch (error) {
@@ -37,26 +39,32 @@ export default function Admin() {
     }
   }
   return (
-    <>
-      <form
-        onSubmit={handleLogin}
-        className="w-80 flex flex-col justify-between p-3"
+    <CommerceProvider>
+      <div
+        className="flex flex-col"
+        style={{
+          height: '100vh',
+          width: '100vw',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <div className="flex justify-center pb-12 ">
-          <Logo width="64px" height="64px" />
+        <div className="w-80 flex flex-col p-5" style={{ marginTop: '-2rem' }}>
+          {/* <div className="flex justify-center pb-12 ">
+            <Logo width="64px" height="64px" />
+          </div>
+          <div className="flex flex-col space-y-3">
+            <Button
+              variant="slim"
+              type="submit"
+              loading={loading}
+              disabled={disabled}
+            >
+              Log In
+            </Button>
+          </div> */}
         </div>
-        <div className="flex flex-col space-y-3">
-          <Button
-            variant="slim"
-            type="submit"
-            loading={loading}
-            disabled={disabled}
-          >
-            Log In
-          </Button>
-        </div>
-      </form>
-      <Button
+        {/* <Button
         variant="slim"
         loading={loading}
         disabled={disabled}
@@ -65,8 +73,10 @@ export default function Admin() {
         }}
       >
         Log Out
-      </Button>
-    </>
+      </Button> */}
+        <LoginView loginType="admin" />
+      </div>
+    </CommerceProvider>
   )
 }
 
