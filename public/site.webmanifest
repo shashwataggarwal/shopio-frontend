@@ -1,7 +1,7 @@
 {
-  "name": "Next.js Commerce",
-  "short_name": "Next.js Commerce",
-  "description": "Next.js Commerce -> https://www.nextjs.org/commerce",
+  "name": "shop.io",
+  "short_name": "shop.io",
+  "description": "shop.io | FCS Project",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#fff",
@@ -9,14 +9,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
     },
     {
-      "src": "/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+        "src": "/android-chrome-256x256.png",
+        "sizes": "256x256",
+        "type": "image/png"
     }
   ]
 }

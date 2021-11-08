@@ -36,7 +36,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 <span className="rounded-full border border-accent-6 mr-2">
                   <Logo />
                 </span>
-                <span>ACME</span>
+                <span>shop.io</span>
               </a>
             </Link>
           </div>
@@ -55,23 +55,23 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
           <div className="col-span-1 lg:col-span-2 flex items-start lg:justify-end text-primary">
             <div className="flex space-x-6 items-center h-10">
-              <a
+              {/* <a
                 className={s.link}
                 aria-label="Github Repository"
                 href="https://github.com/vercel/commerce"
               >
                 <Github />
               </a>
-              <I18nWidget />
+              <I18nWidget /> */}
             </div>
           </div>
         </div>
         <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">
           <div>
-            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+            <span>&copy; 2021 Lemon8, Inc. All rights reserved.</span>
           </div>
           <div className="flex items-center text-primary text-sm">
-            <span className="text-primary">Created by</span>
+            {/* <span className="text-primary">Created by</span>
             <a
               rel="noopener noreferrer"
               href="https://vercel.com"
@@ -83,7 +83,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 className="inline-block h-6 ml-3 text-primary"
                 alt="Vercel.com Logo"
               />
-            </a>
+            </a> */}
           </div>
         </div>
       </Container>

@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { CommerceProvider } from '@framework'
 import { fetcher } from '@framework/fetcher'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { DisappearedLoading } from 'react-loadingg'
 
 function loadScript(src: string) {
   return new Promise((resolve) => {
@@ -201,7 +202,11 @@ function CheckoutFlow() {
     paymentObject.open()
   }
 
-  return <h1>HELLO</h1>
+  return (
+    <div>
+      <DisappearedLoading color="#ffffff" size="large" />
+    </div>
+  )
 }
 
 export default function Checkout() {
