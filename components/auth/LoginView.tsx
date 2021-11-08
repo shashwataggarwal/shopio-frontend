@@ -105,8 +105,10 @@ const LoginView: FC<Props> = (props) => {
         res.authenticate.__typename == 'CurrentUser'
       ) {
         // successfully authenticated - redirect to Vendure Admin UI
-        // window.location.href = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
-        window.location.replace(`https://google.com/`)
+        window.location.replace(
+          `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+        )
+        // window.location.replace(`https://google.com/`)
       }
       // console.log('user avatar', userAvatar)
       if (userAvatar) setUserAvatarHook(userAvatar)

@@ -28,7 +28,7 @@ export default function OTPAuth({
       else if (user?.email)
         user?.getIdToken().then((idToken) => {
           if (typeof window !== 'undefined') {
-            console.log('USER', user)
+            // console.log('USER', user)
             // localStorage.setItem('auth_token', idToken)
             setAuthToken(idToken)
             if (loginType != 'admin')
