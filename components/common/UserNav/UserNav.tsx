@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import Link from 'next/link'
 import cn from 'classnames'
 import type { LineItem } from '@commerce/types/cart'
@@ -23,14 +23,29 @@ const UserNav: FC<Props> = ({ className }) => {
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
+  useEffect(() => {
+    if (!customer) {
+      const avatar = localStorage.getItem('userAvatar')
+      if (!avatar?.includes('linear-gradient'))
+        localStorage.removeItem('userAvatar')
+    }
+  }, [customer])
+
   return (
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
         {process.env.COMMERCE_CART_ENABLED && (
           <li className={s.item}>
-            <Button className={s.item} variant="naked" onClick={toggleSidebar} aria-label="Cart">
+            <Button
+              className={s.item}
+              variant="naked"
+              onClick={toggleSidebar}
+              aria-label="Cart"
+            >
               <Bag />
-              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
+              {itemsCount > 0 && (
+                <span className={s.bagCount}>{itemsCount}</span>
+              )}
             </Button>
           </li>
         )}

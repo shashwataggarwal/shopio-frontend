@@ -19,8 +19,8 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
       <div className={s.nav}>
         <div className="flex items-center flex-1">
           <Link href="/">
-            <a className={s.logo} aria-label="Logo">
-              <Logo />
+            <a className={s.logo} aria-label="Logo" style={{ border: 'none' }}>
+              <Logo withText={true} />
             </a>
           </Link>
           <nav className={s.navMenu}>

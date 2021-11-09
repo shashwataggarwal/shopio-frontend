@@ -21,10 +21,10 @@ interface DropdownMenuProps {
 }
 
 const LINKS = [
-  {
-    name: 'My Orders',
-    href: '/orders',
-  },
+  // {
+  //   name: 'My Orders',
+  //   href: '/orders',
+  // },
   {
     name: 'My Profile',
     href: '/profile',

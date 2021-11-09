@@ -30,16 +30,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
     <footer className={rootClassName}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-12 text-primary bg-primary transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-2">
-            <Link href="/">
-              <a className="flex flex-initial items-center font-bold md:mr-24">
-                <span className="rounded-full border border-accent-6 mr-2">
-                  <Logo />
-                </span>
-                <span>shop.io</span>
-              </a>
-            </Link>
-          </div>
           <div className="col-span-1 lg:col-span-8">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
               {[...links, ...sitePages].map((page) => (
@@ -64,6 +54,16 @@ const Footer: FC<Props> = ({ className, pages }) => {
               </a>
               <I18nWidget /> */}
             </div>
+          </div>
+          <div className="col-span-12 lg:col-span-12">
+            <Link href="/">
+              <a className="flex flex-initial items-center font-bold md:mr-24">
+                <span className="rounded-full mr-2">
+                  <Logo width={200} height={100} withText={true} />
+                </span>
+                {/* <span>shop.io</span> */}
+              </a>
+            </Link>
           </div>
         </div>
         <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">

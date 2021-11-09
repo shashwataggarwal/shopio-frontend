@@ -11,7 +11,7 @@ import GoogleAuth from './GoogleAuth'
 import { gql, GraphQLClient } from 'graphql-request'
 import { useUserAvatar } from '@lib/hooks/useUserAvatar'
 
-interface Props { }
+interface Props {}
 
 function adminLogin({ auth_token, phone_token, phone_number }: any) {
   const endpoint = `https://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
@@ -100,6 +100,16 @@ const LoginView: FC<Props> = (props) => {
         phone_number,
       })
       console.log('RES', res)
+      if (loginType == 'admin') {
+        const isAdminSuccess = res.authenticate.__typename == 'CurrentUser'
+        isAdminSuccess
+          ? window.location.replace(
+              `https://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+            )
+          : setMessage(
+              res.authenticate.message + '. Please reload and try again.'
+            )
+      }
       if (
         loginType == 'admin' &&
         res.authenticate.__typename == 'CurrentUser'
@@ -154,7 +164,11 @@ const LoginView: FC<Props> = (props) => {
       className="w-80 flex flex-col justify-between p-3"
     >
       <div className="flex justify-center pb-12 ">
-        <Logo width="64px" height="64px" />
+        {loginType == 'admin' ? (
+          <Logo adminLogo />
+        ) : (
+          <Logo width="64px" height="64px" />
+        )}
       </div>
       <div className="flex flex-col space-y-3">
         {message && (

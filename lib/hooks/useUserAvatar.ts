@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useUI } from '@components/ui/context'
 import { getRandomPairOfColors } from '@lib/colors'
+// import { useCustomer } from '@framework/customer'
 
 export const useUserAvatar = (name = 'userAvatar') => {
   const { userAvatar, setUserAvatar } = useUI()
+  // const { data: customer } = useCustomer()
   useEffect(() => {
-    console.log('AVATR', userAvatar, localStorage.getItem(name))
-
     if (!userAvatar && localStorage.getItem(name)) {
       // Get bg from localStorage and push it to the context.
       setUserAvatar(localStorage.getItem(name))
