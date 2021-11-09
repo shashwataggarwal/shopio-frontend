@@ -74,7 +74,7 @@ export default function Admin() {
       >
         Log Out
       </Button> */}
-        <LoginView loginType="admin" />
+        {/* <LoginView loginType="admin" /> */}
       </div>
     </CommerceProvider>
   )
