@@ -11,10 +11,10 @@ import GoogleAuth from './GoogleAuth'
 import { gql, GraphQLClient } from 'graphql-request'
 import { useUserAvatar } from '@lib/hooks/useUserAvatar'
 
-interface Props {}
+interface Props { }
 
 function adminLogin({ auth_token, phone_token, phone_number }: any) {
-  const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
+  const endpoint = `https://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
   const client = new GraphQLClient(endpoint, {
     credentials: 'include',
     mode: 'cors',
@@ -106,7 +106,7 @@ const LoginView: FC<Props> = (props) => {
       ) {
         // successfully authenticated - redirect to Vendure Admin UI
         window.location.replace(
-          `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+          `https://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
         )
         // window.location.replace(`https://google.com/`)
       }

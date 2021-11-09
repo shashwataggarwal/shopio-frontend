@@ -32,10 +32,10 @@ module.exports = withCommerceConfig({
       // For Vendure, rewrite the local api url to the remote (external) api url. This is required
       // to make the session cookies work.
       isVendure &&
-        process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL && {
-          source: `${process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL}/:path*`,
-          destination: `${process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL}/:path*`,
-        },
+      process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL && {
+        source: `${process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL}/:path*`,
+        destination: `${process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL}/:path*`,
+      },
     ].filter(Boolean)
   },
   typescript: {
