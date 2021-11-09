@@ -208,7 +208,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                  <ul>
+                  {/* <ul>
                     <li
                       className={cn(
                         'block text-sm leading-5 text-accent-4 lg:text-base lg:no-underline lg:font-bold lg:tracking-wide hover:bg-accent-1 lg:hover:bg-transparent hover:text-accent-8 focus:outline-none focus:bg-accent-1 focus:text-accent-8',
@@ -261,7 +261,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                         </Link>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
         </div>
 
         {/* Sort */}
-        <div className="col-span-8 lg:col-span-2 order-2 lg:order-none">
+        {/* <div className="col-span-8 lg:col-span-2 order-2 lg:order-none">
           <div className="relative inline-block w-full">
             <div className="lg:hidden">
               <span className="rounded-md shadow-sm">
@@ -430,7 +430,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </Container>
   )
