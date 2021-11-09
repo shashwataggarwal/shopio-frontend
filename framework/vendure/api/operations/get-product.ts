@@ -50,9 +50,7 @@ export default function getProductOperation({
             })),
           })),
           price: {
-            value: product.variants[0]
-              ? product.variants[0].priceWithTax / 100
-              : 0,
+            value: product.variants[0].priceWithTax,
             currencyCode: product.variants[0].currencyCode,
           },
           options: product.optionGroups.map((og) => ({
