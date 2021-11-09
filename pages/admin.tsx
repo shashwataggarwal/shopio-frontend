@@ -6,38 +6,38 @@ import { LoginView } from '@components/auth'
 import { CommerceProvider } from '@framework'
 
 export default function Admin() {
-  const [loading, setLoading] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  // const [loading, setLoading] = useState(false)
+  // const [disabled, setDisabled] = useState(false)
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    const auth_token = (await localStorage.getItem('auth_token')) || ''
-    const phone_token = (await localStorage.getItem('phone_token')) || ''
-    const phone_number = (await localStorage.getItem('phone_number')) || ''
-    try {
-      setLoading(true)
-      const res = await admin_login({
-        auth_token,
-        phone_token,
-        phone_number,
-      })
-      console.log('RES', res)
+  // const handleLogin = async (e) => {
+  //   e.preventDefault()
+  //   const auth_token = (await localStorage.getItem('auth_token')) || ''
+  //   const phone_token = (await localStorage.getItem('phone_token')) || ''
+  //   const phone_number = (await localStorage.getItem('phone_number')) || ''
+  //   try {
+  //     setLoading(true)
+  //     const res = await admin_login({
+  //       auth_token,
+  //       phone_token,
+  //       phone_number,
+  //     })
+  //     console.log('RES', res)
 
-      if (res.authenticate.__typename == 'CurrentUser') {
-        // successfully authenticated - redirect to Vendure Admin UI
-        // window.location.href = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
-        window.location.replace(
-          `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
-        )
-      }
-      setLoading(false)
-    } catch (error) {
-      alert('ERROR!!')
-      console.log(error)
-      setLoading(false)
-      setDisabled(false)
-    }
-  }
+  //     if (res.authenticate.__typename == 'CurrentUser') {
+  //       // successfully authenticated - redirect to Vendure Admin UI
+  //       // window.location.href = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+  //       window.location.replace(
+  //         `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin`
+  //       )
+  //     }
+  //     setLoading(false)
+  //   } catch (error) {
+  //     alert('ERROR!!')
+  //     console.log(error)
+  //     setLoading(false)
+  //     setDisabled(false)
+  //   }
+  // }
   return (
     <CommerceProvider>
       <div
@@ -80,69 +80,69 @@ export default function Admin() {
   )
 }
 
-function admin_login({ auth_token, phone_token, phone_number }) {
-  const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
-  const client = new GraphQLClient(endpoint, {
-    credentials: 'include',
-    mode: 'cors',
-  })
-  const query = gql`
-    mutation Authenticate(
-      $auth_token: String!
-      $phone_token: String!
-      $phone_number: String!
-    ) {
-      authenticate(
-        input: {
-          firebaseMerchant: {
-            auth_token: $auth_token
-            phone_token: $phone_token
-            phone_number: $phone_number
-          }
-        }
-      ) {
-        __typename
-        ... on CurrentUser {
-          id
-          identifier
-        }
-        ... on ErrorResult {
-          errorCode
-          message
-        }
-      }
-    }
-  `
-  //   const query = gql`
-  //     mutation {
-  //       authenticate(
-  //         input: {
-  //           firebaseSeller: {
-  //             auth_token: "$auth_token"
-  //             phone_token: "$phone_token"
-  //             phone_number: "$phone_number"
-  //           }
-  //         }
-  //       ) {
-  //         __typename
-  //         ... on CurrentUser {
-  //           id
-  //           identifier
-  //         }
-  //         ... on ErrorResult {
-  //           errorCode
-  //           message
-  //         }
-  //       }
-  //     }
-  //   `
-  const variables = {
-    auth_token,
-    phone_token,
-    phone_number,
-  }
-  return client.request(query, variables)
-}
+// function admin_login({ auth_token, phone_token, phone_number }) {
+//   const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
+//   const client = new GraphQLClient(endpoint, {
+//     credentials: 'include',
+//     mode: 'cors',
+//   })
+//   const query = gql`
+//     mutation Authenticate(
+//       $auth_token: String!
+//       $phone_token: String!
+//       $phone_number: String!
+//     ) {
+//       authenticate(
+//         input: {
+//           firebaseMerchant: {
+//             auth_token: $auth_token
+//             phone_token: $phone_token
+//             phone_number: $phone_number
+//           }
+//         }
+//       ) {
+//         __typename
+//         ... on CurrentUser {
+//           id
+//           identifier
+//         }
+//         ... on ErrorResult {
+//           errorCode
+//           message
+//         }
+//       }
+//     }
+//   `
+//   //   const query = gql`
+//   //     mutation {
+//   //       authenticate(
+//   //         input: {
+//   //           firebaseSeller: {
+//   //             auth_token: "$auth_token"
+//   //             phone_token: "$phone_token"
+//   //             phone_number: "$phone_number"
+//   //           }
+//   //         }
+//   //       ) {
+//   //         __typename
+//   //         ... on CurrentUser {
+//   //           id
+//   //           identifier
+//   //         }
+//   //         ... on ErrorResult {
+//   //           errorCode
+//   //           message
+//   //         }
+//   //       }
+//   //     }
+//   //   `
+//   const variables = {
+//     auth_token,
+//     phone_token,
+//     phone_number,
+//   }
+//   return client.request(query, variables)
+// }
 
 // make gql request to end point
 // const admin_login = gql`
@@ -154,16 +154,16 @@ function admin_login({ auth_token, phone_token, phone_number }) {
 //     }
 //   }
 // `
-function admin_logout() {
-  const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
-  const query = gql`
-    mutation LogOut {
-      logout {
-        success
-        __typename
-      }
-    }
-  `
-  const variables = {}
-  return request(endpoint, query, variables)
-}
+// function admin_logout() {
+//   const endpoint = `http://${process.env.NEXT_PUBLIC_VENDURE_ENDPOINT_DOMAIN}/admin-api`
+//   const query = gql`
+//     mutation LogOut {
+//       logout {
+//         success
+//         __typename
+//       }
+//     }
+//   `
+//   const variables = {}
+//   return request(endpoint, query, variables)
+// }
