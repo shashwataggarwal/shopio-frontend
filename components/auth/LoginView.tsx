@@ -111,7 +111,7 @@ const LoginView: FC<Props> = (props) => {
         // window.location.replace(`https://google.com/`)
       }
       // console.log('user avatar', userAvatar)
-      if (userAvatar) setUserAvatarHook(userAvatar)
+      if (res && userAvatar) setUserAvatarHook(userAvatar)
       setLoading(false)
       closeModal()
     } catch (error) {
