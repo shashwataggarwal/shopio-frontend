@@ -41,6 +41,7 @@ module.exports = withCommerceConfig({
   typescript: {
     ignoreBuildErrors: true,
   },
+  target: 'serverless',
 })
 
 // Don't delete this console log, useful to see the commerce config in Vercel deployments
