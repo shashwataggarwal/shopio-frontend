@@ -39,36 +39,39 @@ export const fetcher: Fetcher = async ({
   const body = hasBody ? JSON.stringify({ query, variables }) : undefined
   const headers = hasBody ? { 'Content-Type': 'application/json' } : undefined
 
-  const res = await axios({
-    url: process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL,
-    method,
-    headers,
-    data: body,
-    withCredentials: true,
-    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-  })
+  try {
+    const res = await axios({
+      url: process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL,
+      method,
+      headers,
+      data: JSON.parse(body),
+      withCredentials: true,
+      httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    })
 
-  // const res = await fetch(shopApiUrl, {
-  //   method,
-  //   body,
-  //   headers,
-  //   credentials: 'include',
-  // })
-  console.log('RES AXIOS', res)
-  if (res.statusText == 'OK') {
-    const { data, errors } = res.data
-    if (errors) {
-      throw await new FetcherError({ status: res.status, errors })
+    // const res = await fetch(shopApiUrl, {
+    //   method,
+    //   body,
+    //   headers,
+    //   credentials: 'include',
+    // })
+    console.log('RES AXIOS', res)
+    if (res.statusText == 'OK') {
+      const { data, errors } = res.data
+      if (errors) {
+        throw await new FetcherError({ status: res.status, errors })
+      }
+      return data
     }
-    return data
+  } catch (er) {
+    // if (res.ok) {
+    //   const { data, errors } = await res.json()
+    //   if (errors) {
+    //     throw await new FetcherError({ status: res.status, errors })
+    //   }
+    //   return data
+    // }
+    console.log('ERR', er)
   }
-  // if (res.ok) {
-  //   const { data, errors } = await res.json()
-  //   if (errors) {
-  //     throw await new FetcherError({ status: res.status, errors })
-  //   }
-  //   return data
-  // }
-
-  throw await getError(res)
+  // throw await getError(res)
 }
