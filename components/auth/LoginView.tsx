@@ -99,7 +99,7 @@ const LoginView: FC<Props> = (props) => {
         phone_token,
         phone_number,
       })
-      console.log('RES', res)
+      // console.log('RES', res)
       if (loginType == 'admin') {
         const isAdminSuccess = res.authenticate.__typename == 'CurrentUser'
         isAdminSuccess

@@ -29,7 +29,7 @@ export const fetcher: Fetcher = async ({
   const shopApiUrl =
     process.env.NEXT_PUBLIC_VENDURE_LOCAL_URL ||
     process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL
-  console.log('HEYO')
+  // console.log('HEYO')
   if (!shopApiUrl) {
     throw new Error(
       'The Vendure Shop API url has not been provided. Please define NEXT_PUBLIC_VENDURE_SHOP_API_URL in .env.local'
@@ -55,7 +55,7 @@ export const fetcher: Fetcher = async ({
     //   headers,
     //   credentials: 'include',
     // })
-    console.log('RES AXIOS', res)
+    // console.log('RES AXIOS', res)
     if (res.statusText == 'OK') {
       const { data, errors } = res.data
       if (errors) {

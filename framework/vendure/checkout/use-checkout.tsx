@@ -35,14 +35,14 @@ export const handler2: MutationHook<any> = {
       orderId,
     }
 
-    console.log('variables', variables)
+    // console.log('variables', variables)
 
     const res = await fetch<any>({
       ...options,
       variables,
     })
 
-    console.log('Res checkout', res)
+    // console.log('Res checkout', res)
 
     return null
   },

@@ -280,7 +280,7 @@ const getMutateOrderAdressQuery = (
                 message
               }
             }
-          setOrderShippingMethod(shippingMethodId: ${shippingMethodId}) {
+          setOrderShippingMethod(shippingMethodId: "${shippingMethodId}") {
             __typename
             ...on Order {
               state
