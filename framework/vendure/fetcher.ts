@@ -43,7 +43,7 @@ export const fetcher: Fetcher = async ({
     url: process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL,
     method,
     headers,
-    data: JSON.parse(body),
+    data: body,
     withCredentials: true,
     httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   })
