@@ -204,7 +204,10 @@ function CheckoutFlow() {
 
   return (
     <div>
-      <DisappearedLoading color="#ffffff" size="large" />
+      <DisappearedLoading
+        color="linear-gradient(to right, #12c2e9, #c471ed, #f64f59)"
+        size="large"
+      />
     </div>
   )
 }
