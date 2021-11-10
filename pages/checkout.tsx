@@ -335,7 +335,7 @@ function clearCart(router) {
 
 const getRazorpayOrderIdQuery = (orderId: any) => `
         mutation {
-          generateRazorpayOrderId(orderId: ${orderId}) {
+          generateRazorpayOrderId(orderId: "${orderId}") {
             __typename
           }
         }
