@@ -162,8 +162,13 @@ function CheckoutFlow() {
       currency: data.currencyCode,
       amount: data.totalWithTax.toString(),
       order_id: data.customFields.razorpay_order_id,
-      name: 'Donation',
-      description: 'Thank you for nothing. Please give us some money',
+      image: 'https://i.ibb.co/K2YxKjr/favicon-144x144.png',
+      name: 'shop.io',
+      description: 'Thank you for shopping with us. Please give us some money',
+      theme: {
+        color: '#000000',
+      },
+      send_sms_hash: 'true',
       handler: function (response: {
         razorpay_payment_id: any
         razorpay_order_id: any

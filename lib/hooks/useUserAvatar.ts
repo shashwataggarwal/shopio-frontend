@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useUI } from '@components/ui/context'
 import { getRandomPairOfColors } from '@lib/colors'
-// import { useCustomer } from '@framework/customer'
+import { useCustomer } from '@framework/customer'
 
 export const useUserAvatar = (name = 'userAvatar') => {
   const { userAvatar, setUserAvatar } = useUI()
-  // const { data: customer } = useCustomer()
+  const { data: customer } = useCustomer()
   useEffect(() => {
     if (!userAvatar && localStorage.getItem(name)) {
       // Get bg from localStorage and push it to the context.
@@ -22,7 +22,15 @@ export const useUserAvatar = (name = 'userAvatar') => {
     if (userAvatar) {
       localStorage.setItem(name, userAvatar)
     }
-  }, [userAvatar])
+    if (!customer) {
+      // const avatar = localStorage.getItem('userAvatar')
+      if (!userAvatar?.includes('linear-gradient')) {
+        const bg = getRandomPairOfColors()
+        const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+        setUserAvatar(value)
+      }
+    }
+  }, [userAvatar, customer])
 
   return {
     userAvatar,

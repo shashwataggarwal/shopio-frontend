@@ -23,13 +23,13 @@ const UserNav: FC<Props> = ({ className }) => {
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
-  useEffect(() => {
-    if (!customer) {
-      const avatar = localStorage.getItem('userAvatar')
-      if (!avatar?.includes('linear-gradient'))
-        localStorage.removeItem('userAvatar')
-    }
-  }, [customer])
+  // useEffect(() => {
+  //   if (!customer) {
+  //     const avatar = localStorage.getItem('userAvatar')
+  //     if (!avatar?.includes('linear-gradient'))
+  //       localStorage.removeItem('userAvatar')
+  //   }
+  // }, [customer])
 
   return (
     <nav className={cn(s.root, className)}>
