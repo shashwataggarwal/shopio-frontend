@@ -50,8 +50,8 @@ export default function getProductOperation({
             })),
           })),
           price: {
-            value: product.variants[0]?.priceWithTax,
-            currencyCode: product.variants[0]?.currencyCode,
+            value: product.variants[0]?.priceWithTax || 0,
+            currencyCode: product.variants[0]?.currencyCode || 'INR',
           },
           options: product.optionGroups.map((og) => ({
             id: og.id,
