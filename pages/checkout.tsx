@@ -4,6 +4,7 @@ import { CommerceProvider } from '@framework'
 import { fetcher } from '@framework/fetcher'
 import { useRouter } from 'next/router'
 import { DisappearedLoading } from 'react-loadingg'
+import Swal from 'sweetalert2'
 
 function loadScript(src: string) {
   return new Promise((resolve) => {
@@ -19,6 +20,22 @@ function loadScript(src: string) {
   })
 }
 
+function showAlert({
+  title = 'Error',
+  text = 'There was an error',
+  icon = 'error',
+  allowOutsideClick = false,
+  callback = () => {},
+} = {}) {
+  return Swal.fire({ title, text, icon, allowOutsideClick, callback }).then(
+    ({ isConfirmed }) => {
+      if (isConfirmed) {
+        callback()
+      }
+    }
+  )
+}
+
 function CheckoutFlow() {
   const router = useRouter()
   const [activeCustomerId, setActiveCustomerId] = useState()
@@ -32,8 +49,12 @@ function CheckoutFlow() {
     () =>
       getData(ActiveCustomerQuery).then(({ activeCustomer }: any) => {
         if (!activeCustomer) {
-          alert('Please sign in')
-          router.push('/')
+          // alert('Please sign in')
+          // router.push('/')
+          showAlert({
+            text: 'Please sign in first',
+            callback: () => router.push('/'),
+          })
         } else setActiveCustomerId(activeCustomer.id)
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,8 +66,10 @@ function CheckoutFlow() {
       getData(ActiveOrderQuery).then(
         ({ activeOrder, nextOrderStates, eligibleShippingMethods }: any) => {
           if (!activeOrder || activeOrder?.totalWithTax == 0) {
-            alert('Please create an order, cart is empty!')
-            router.push('/cart')
+            showAlert({
+              text: 'Please create an order, cart is empty!',
+              callback: () => router.push('/'),
+            })
           } else {
             setActiveOrder(activeOrder)
             setNextOrderStates(nextOrderStates)
@@ -81,8 +104,11 @@ function CheckoutFlow() {
           ) {
             setIsTransitionSuccess(true)
           } else {
-            alert('Error! Please try again! Clearing cart...')
-            clearCart(router)
+            // alert('Error! Please try again! Clearing cart...')
+            showAlert({
+              text: 'Some error tranisitoning to payments. Please try again! Clearing cart...',
+              callback: () => clearCart(router),
+            })
           }
         }
       )
@@ -95,8 +121,12 @@ function CheckoutFlow() {
         getData(TransitionOrderQuery).then(
           ({ transitionOrderToState }: any) => {
             if (transitionOrderToState.state != 'ArrangingPayment') {
-              alert('Error! Order is wrong!! Clearing cart...')
-              clearCart(router)
+              // alert('Error! Order is wrong!! Clearing cart...')
+              // clearCart(router)
+              showAlert({
+                text: 'Unable to arrange payment. Please try again! Clearing cart...',
+                callback: () => clearCart(router),
+              })
             } else {
               setIsTransitionSuccess(true)
             }
@@ -113,8 +143,12 @@ function CheckoutFlow() {
         if (generateRazorpayOrderId.__typename == 'RazorpayOrderIdSuccess') {
           displayRazorpay()
         } else {
-          alert('Error! Please try again! Clearing cart...')
-          clearCart(router)
+          // alert('Error! Please try again! Clearing cart...')
+          // clearCart(router)
+          showAlert({
+            text: 'Some error creating Razorpay Order. Please try again! Clearing cart...',
+            callback: () => clearCart(router),
+          })
         }
       })
     }
@@ -122,14 +156,31 @@ function CheckoutFlow() {
 
   async function RazorPayOP(query: any) {
     const { addPaymentToOrder } = await fetcher({ query })
-    alert(`Your payment status is: ${addPaymentToOrder.state}`)
-    if (addPaymentToOrder.state == 'PaymentSettled') router.push('/')
+    // alert(`Your payment status is: ${addPaymentToOrder.state}`)
+    if (addPaymentToOrder.state == 'PaymentSettled') {
+      // router.push('/')
+      showAlert({
+        text: `Your payment is successful!`,
+        title: 'Success',
+        callback: () => router.push('/'),
+        icon: 'success',
+      })
+    } else {
+      showAlert({
+        text: `Your payment status is: ${addPaymentToOrder.state}. Clearing cart...`,
+        callback: () => clearCart(router),
+      })
+    }
   }
   async function displayRazorpay() {
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?')
+      // alert('Razorpay SDK failed to load. Are you online?')
+      showAlert({
+        text: 'Razorpay SDK failed to load. Are you online?',
+        // callback: () => clearCart(router),
+      })
       return
     }
 

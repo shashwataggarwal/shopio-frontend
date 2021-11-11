@@ -7,29 +7,32 @@ export const useUserAvatar = (name = 'userAvatar') => {
   const { userAvatar, setUserAvatar } = useUI()
   const { data: customer } = useCustomer()
   useEffect(() => {
-    if (!userAvatar && localStorage.getItem(name)) {
-      // Get bg from localStorage and push it to the context.
-      setUserAvatar(localStorage.getItem(name))
-    }
-    if (!localStorage.getItem(name)) {
-      // bg not set locally, generating one, setting localStorage and context to persist.
-      const bg = getRandomPairOfColors()
-      const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
-      localStorage.setItem(name, value)
-      setUserAvatar(value)
-    }
-
-    if (userAvatar) {
-      localStorage.setItem(name, userAvatar)
-    }
-    if (!customer) {
-      // const avatar = localStorage.getItem('userAvatar')
-      if (!userAvatar?.includes('linear-gradient')) {
+    if (customer) {
+      if (!userAvatar && localStorage.getItem(name)) {
+        // Get bg from localStorage and push it to the context.
+        setUserAvatar(localStorage.getItem(name))
+      }
+      if (userAvatar) {
+        localStorage.setItem(name, userAvatar)
+      }
+    } else {
+      if (!localStorage.getItem(name)) {
+        // bg not set locally, generating one, setting localStorage and context to persist.
         const bg = getRandomPairOfColors()
         const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+        localStorage.setItem(name, value)
         setUserAvatar(value)
       }
     }
+
+    // if (!customer) {
+    //   // const avatar = localStorage.getItem('userAvatar')
+    //   if (!userAvatar?.includes('linear-gradient')) {
+    //     const bg = getRandomPairOfColors()
+    //     const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+    //     setUserAvatar(value)
+    //   }
+    // }
   }, [userAvatar, customer])
 
   return {

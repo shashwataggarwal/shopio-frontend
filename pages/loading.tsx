@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { DisappearedLoading } from 'react-loadingg'
+import Swal from 'sweetalert2'
 
 export default function Loading() {
+  useEffect(() => {
+    const t = setTimeout(() => {
+      showAlert().then(({ isConfirmed }) => console.log(isConfirmed))
+    }, 3000)
+    return () => clearTimeout(t)
+  }, [])
   return (
     <div className="flex">
       <DisappearedLoading
@@ -10,4 +17,12 @@ export default function Loading() {
       />{' '}
     </div>
   )
+}
+
+function showAlert({
+  title = 'Error',
+  text = 'There was an error',
+  icon = 'error',
+} = {}) {
+  return Swal.fire({ title, text, icon })
 }
