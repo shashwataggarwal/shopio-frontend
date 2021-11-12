@@ -53,9 +53,6 @@ export default function OTPAuth({
         // handleLogin()
       },
       signInFailure: (error: any) => alert(`ERROR ${error}`),
-      uiShown: () => {
-        console.log('uiShown')
-      },
     },
     signInFlow: 'popup',
     signInOptions: [

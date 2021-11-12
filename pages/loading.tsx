@@ -3,12 +3,12 @@ import { DisappearedLoading } from 'react-loadingg'
 import Swal from 'sweetalert2'
 
 export default function Loading() {
-  useEffect(() => {
-    const t = setTimeout(() => {
-      showAlert().then(({ isConfirmed }) => console.log(isConfirmed))
-    }, 3000)
-    return () => clearTimeout(t)
-  }, [])
+  // useEffect(() => {
+  //   const t = setTimeout(() => {
+  //     showAlert().then(({ isConfirmed }) => console.log(isConfirmed))
+  //   }, 3000)
+  //   return () => clearTimeout(t)
+  // }, [])
   return (
     <div className="flex">
       <DisappearedLoading

@@ -7,22 +7,18 @@ export const useUserAvatar = (name = 'userAvatar') => {
   const { userAvatar, setUserAvatar } = useUI()
   const { data: customer } = useCustomer()
   useEffect(() => {
-    if (customer) {
-      if (!userAvatar && localStorage.getItem(name)) {
-        // Get bg from localStorage and push it to the context.
-        setUserAvatar(localStorage.getItem(name))
-      }
-      if (userAvatar) {
-        localStorage.setItem(name, userAvatar)
-      }
-    } else {
-      if (!localStorage.getItem(name)) {
-        // bg not set locally, generating one, setting localStorage and context to persist.
-        const bg = getRandomPairOfColors()
-        const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
-        localStorage.setItem(name, value)
-        setUserAvatar(value)
-      }
+    if (customer === undefined) return
+    if (!userAvatar && localStorage.getItem(name)) {
+      // Get bg from localStorage and push it to the context.
+      setUserAvatar(localStorage.getItem(name))
+    } else if (customer && userAvatar) localStorage.setItem(name, userAvatar)
+
+    if (!localStorage.getItem(name)) {
+      // bg not set locally, generating one, setting localStorage and context to persist.
+      const bg = getRandomPairOfColors()
+      const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+      localStorage.setItem(name, value)
+      setUserAvatar(value)
     }
 
     // if (!customer) {

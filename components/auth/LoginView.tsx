@@ -10,6 +10,23 @@ import OTPAuth from './OTPAuth'
 import GoogleAuth from './GoogleAuth'
 import { gql, GraphQLClient } from 'graphql-request'
 import { useUserAvatar } from '@lib/hooks/useUserAvatar'
+import Swal from 'sweetalert2'
+
+function showAlert({
+  title = 'Error',
+  text = 'There was an error',
+  icon = 'error',
+  allowOutsideClick = false,
+  callback = () => {},
+} = {}) {
+  return Swal.fire({ title, text, icon, allowOutsideClick, callback }).then(
+    ({ isConfirmed }) => {
+      if (isConfirmed) {
+        callback()
+      }
+    }
+  )
+}
 
 interface Props {}
 
@@ -125,8 +142,7 @@ const LoginView: FC<Props> = (props) => {
       setLoading(false)
       closeModal()
     } catch (error) {
-      alert('ERROR!! While logging in')
-      console.log(error)
+      showAlert({ text: 'Could not login!! Please try again...' })
       setLoading(false)
       setDisabled(false)
     }
@@ -160,7 +176,7 @@ const LoginView: FC<Props> = (props) => {
 
   return (
     <form
-      onSubmit={() => console.log('yo')}
+      onSubmit={() => {}}
       className="w-80 flex flex-col justify-between p-3"
     >
       <div className="flex justify-center pb-12 ">
