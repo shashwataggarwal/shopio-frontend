@@ -10,7 +10,17 @@ export const useUserAvatar = (name = 'userAvatar') => {
     if (customer === undefined) return
     if (!userAvatar && localStorage.getItem(name)) {
       // Get bg from localStorage and push it to the context.
-      setUserAvatar(localStorage.getItem(name))
+      if (
+        customer === null &&
+        !localStorage.getItem(name)?.includes('linear-gradient')
+      ) {
+        const bg = getRandomPairOfColors()
+        const value = `linear-gradient(140deg, ${bg[0]}, ${bg[1]} 100%)`
+        localStorage.setItem(name, value)
+        setUserAvatar(value)
+      } else {
+        setUserAvatar(localStorage.getItem(name))
+      }
     } else if (customer && userAvatar) localStorage.setItem(name, userAvatar)
 
     if (!localStorage.getItem(name)) {
